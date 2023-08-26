@@ -10,10 +10,14 @@ calculator:
 	@go build -o bin/calculator ./distance_calculator
 	@./bin/calculator
 
+agg: 
+	@go build -o bin/aggregator ./aggregator
+	@./bin/aggregator
+
 kafkaup:
 	@docker-compose up -d
 	
 kafkadown:
 	@docker-compose down 
 
-.PHONY: obu
+.PHONY: obu invoicer
