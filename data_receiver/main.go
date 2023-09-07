@@ -43,7 +43,7 @@ func NewDataReceiver() (*DataReceiver, error) {
 	}, nil
 }
 
-func (dr *DataReceiver) productData(data types.OBUData) error {
+func (dr *DataReceiver) produceData(data types.OBUData) error {
 	return dr.prod.ProduceData(data)
 }
 
@@ -60,6 +60,7 @@ func (dr *DataReceiver) handleWS(w http.ResponseWriter, r *http.Request) {
 
 	go dr.wsReceiveLoop()
 }
+//gets from the web socket and produces it to kafka
 
 func (dr *DataReceiver) wsReceiveLoop() {
 	fmt.Println("New OBU cleint connected !")
@@ -69,7 +70,7 @@ func (dr *DataReceiver) wsReceiveLoop() {
 			log.Println("read error:", err)
 			continue
 		}
-		if err := dr.productData(data); err != nil {
+		if err := dr.produceData(data); err != nil {
 			log.Println("kafka produce error:", err)
 			continue
 		}

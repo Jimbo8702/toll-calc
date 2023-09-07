@@ -8,14 +8,14 @@ import (
 
 const (
 	kafkaTopic = "obudata"
-	aggregatorEndpoint = "http://127.0.0.1:4000/aggregate"
+	aggregatorEndpoint = "http://127.0.0.1:4000"
 )
 
 func main() {
 	var (
 		err error
 		svc CalculatorServicer
-		client = client.NewClient(aggregatorEndpoint)
+		client = client.NewHTTPClient(aggregatorEndpoint)
 	)
 	svc = NewCalculatorService()
 	svc = NewLogMiddleware(svc)
